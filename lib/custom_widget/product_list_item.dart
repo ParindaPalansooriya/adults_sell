@@ -10,10 +10,10 @@ import '../product.dart';
 import '../product_viewmodel.dart';
 
 class ProductListItem extends StatefulWidget {
-  // final Product? product;
+  final Product? product;
   final int? index;
 
-  const ProductListItem({Key? key, this.index}) : super(key: key);
+  const ProductListItem({Key? key,this.product, this.index}) : super(key: key);
 
   @override
   State<ProductListItem> createState() => _ProductListItemState();
@@ -25,7 +25,7 @@ class _ProductListItemState extends State<ProductListItem> {
 
   @override
   void initState() {
-    // count = Provider.of<CartViewModel>(context,listen: false).getQuntity(widget.product!);
+    count = Provider.of<CartViewModel>(context,listen: false).getQuntity(widget.product!);
     super.initState();
   }
 
@@ -44,8 +44,8 @@ class _ProductListItemState extends State<ProductListItem> {
                       padding: const EdgeInsets.only(bottom: 10,right: 2),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: "widget.product!.urlImage![0]"!=null?Image.network(
-                          "widget.product!.urlImage![0]!",
+                        child: widget.product!.urlImage![0]!=null?Image.network(
+                          widget.product!.urlImage![0]!,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) => Padding(
                             padding: const EdgeInsets.all(40),
@@ -64,7 +64,7 @@ class _ProductListItemState extends State<ProductListItem> {
                       ),
                     ),
                   ),
-                  /*widget.product!.currentStock!>0?const SizedBox():*/Container(
+                  widget.product!.currentStock!>0?const SizedBox():Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -79,12 +79,12 @@ class _ProductListItemState extends State<ProductListItem> {
                       child: InkWell(
                         onTap: (){
                           setState(() {
-                            // widget.product!.isLike =! widget.product!.isLike!;
-                            // if(widget.product!.isLike!){
-                            //   Provider.of<ProductViewModel>(context,listen: false).likeProduct(widget.product!);
-                            // }else{
-                            //   Provider.of<ProductViewModel>(context,listen: false).unLikeProduct(widget.product!);
-                            // }
+                            widget.product!.isLike =! widget.product!.isLike!;
+                            if(widget.product!.isLike!){
+                              Provider.of<ProductViewModel>(context,listen: false).likeProduct(widget.product!);
+                            }else{
+                              Provider.of<ProductViewModel>(context,listen: false).unLikeProduct(widget.product!);
+                            }
                           });
                         },
                         child: Container(
@@ -102,8 +102,8 @@ class _ProductListItemState extends State<ProductListItem> {
                               ],
                             ),
                             child: Icon(
-                              /*widget.product!.isLike! ?Icons.favorite  :*/  Icons.favorite_border,
-                              color:  /*widget.product!.isLike! ?  primaryColorRed :*/ primaryColorGray,
+                              widget.product!.isLike! ?Icons.favorite  :  Icons.favorite_border,
+                              color:  widget.product!.isLike! ?  primaryColorRed : primaryColorGray,
                               size: 19,
                             ),
                         ),
@@ -125,15 +125,15 @@ class _ProductListItemState extends State<ProductListItem> {
                   Expanded(
                     child: InkWell(
                       onTap: ()async{
-                        /*Provider.of<ProductViewModel>(context,listen: false).addRecentView(widget.product!);
+                        Provider.of<ProductViewModel>(context,listen: false).addRecentView(widget.product!);
                         await showChooseSize(context, widget.product);
-                        setState(() {});*/
+                        setState(() {});
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('widget.product!.category!',
+                          Text(widget.product!.category!,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: Fonts.poppinsMedium,
@@ -142,7 +142,7 @@ class _ProductListItemState extends State<ProductListItem> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          Text('widget.product!.title!',
+                          Text(widget.product!.title!,
                               textAlign: TextAlign.center,
                               softWrap: true,
                               style: TextStyle(
@@ -159,7 +159,7 @@ class _ProductListItemState extends State<ProductListItem> {
               const SizedBox(
                 height: 8,
               ),
-              Text( 'formatter.format(widget.product!.price??0)',
+              Text( formatter.format(widget.product!.price??0),
                 style: TextStyle(
                     fontFamily: Fonts.poppinsBold,
                     fontSize: 14,
@@ -169,17 +169,17 @@ class _ProductListItemState extends State<ProductListItem> {
               const SizedBox(
                 height: 8,
               ),
-              /*(widget.product!.r_price??0)>(widget.product!.price??0)?*/Text( 'formatter.format(widget.product!.r_price??0)',
+              (widget.product!.r_price??0)>(widget.product!.price??0)?Text( formatter.format(widget.product!.r_price??0),
                 style: TextStyle(
                     fontFamily: Fonts.poppinsBold,
                     fontSize: 10,
                     decoration: TextDecoration.lineThrough,
                     decorationThickness: 8,
                     color: Colors.grey.shade600
-                ))/*:const SizedBox()*/,
-              /*SizedBox(
+                )):const SizedBox(),
+              SizedBox(
                 height: (widget.product!.r_price??0)>(widget.product!.price??0)?8:0,
-              ),*/
+              ),
               Container(
                 padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
@@ -191,7 +191,7 @@ class _ProductListItemState extends State<ProductListItem> {
                   children: [
                     InkWell(
                       onTap: (){
-                        /*int code = Provider.of<CartViewModel>(context,listen: false)
+                        int code = Provider.of<CartViewModel>(context,listen: false)
                             .setQuntity(widget.product!, count-1);
                         setState(() {
                           if(code==1){
@@ -200,7 +200,7 @@ class _ProductListItemState extends State<ProductListItem> {
                           if(code==2){
                             count=0;
                           }
-                        });*/
+                        });
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
@@ -246,7 +246,7 @@ class _ProductListItemState extends State<ProductListItem> {
       context: ctx,
       builder: (_) {
         return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
-          // print(widget.product!.toJson().toString());
+          print(widget.product!.toJson().toString());
           return Padding(
             padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
             child: SingleChildScrollView(
@@ -255,16 +255,16 @@ class _ProductListItemState extends State<ProductListItem> {
                 children: [
                   SizedBox(
                       height: MediaQuery.of(context).size.height/3,
-                    child: /*widget.product!.urlImage![0]!=null?*/Image.network(
-                      'widget.product!.urlImage![0]!',
+                    child: widget.product!.urlImage![0]!=null?Image.network(
+                      widget.product!.urlImage![0]!,
                       fit: BoxFit.cover,
-                    )/*:Padding(
+                    ):Padding(
                       padding: const EdgeInsets.all(40),
                       child: Image.asset(
                         "assets/image/no-image.png",
                         fit: BoxFit.cover,
                       ),
-                    )*/,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Padding(
@@ -278,7 +278,7 @@ class _ProductListItemState extends State<ProductListItem> {
                           children: [
                             Expanded(
                               child: Text(
-                                'widget.product!.title!',
+                                widget.product!.title!,
                                 style: TextStyle(
                                     fontFamily: Fonts.poppinsBold,
                                     fontSize: 15
@@ -286,7 +286,7 @@ class _ProductListItemState extends State<ProductListItem> {
                               ),
                             ),
                             Text(
-                              'widget.product!.price!.toStringAsFixed(2)',
+                              widget.product!.price!.toStringAsFixed(2),
                               style: TextStyle(
                                   fontFamily: Fonts.poppinsBold,
                                   fontSize: 15
@@ -301,7 +301,7 @@ class _ProductListItemState extends State<ProductListItem> {
                           children: [
                             Expanded(
                               child: Text(
-                                'widget.product!.category!',
+                                widget.product!.category!,
                                 style: TextStyle(
                                   fontFamily: Fonts.poppinsRegular,
                                   fontWeight: FontWeight.normal,
@@ -311,102 +311,102 @@ class _ProductListItemState extends State<ProductListItem> {
                               ),
                             ),
 
-                            // (widget.product!.r_price??0)>(widget.product!.price??0)?Text( formatter.format(widget.product!.r_price??0),
-                            //   style: TextStyle(
-                            //     fontFamily: Fonts.poppinsBold,
-                            //     fontSize: 10,
-                            //     decoration: TextDecoration.lineThrough,
-                            //     decorationThickness: 8,
-                            //     color: Colors.grey.shade600
-                            // )):const SizedBox(),
+                            (widget.product!.r_price??0)>(widget.product!.price??0)?Text( formatter.format(widget.product!.r_price??0),
+                              style: TextStyle(
+                                fontFamily: Fonts.poppinsBold,
+                                fontSize: 10,
+                                decoration: TextDecoration.lineThrough,
+                                decorationThickness: 8,
+                                color: Colors.grey.shade600
+                            )):const SizedBox(),
                           ],
                         ),
-                        // const SizedBox(
-                        //   height: 5,
-                        // ),
-                        // widget.product!.description!=null?Text(
-                        //   widget.product!.description!,
-                        //   style: TextStyle(
-                        //       fontFamily: Fonts.poppinsRegular,
-                        //       fontWeight: FontWeight.normal,
-                        //       fontSize: 13,
-                        //       color: Colors.grey
-                        //   ),
-                        // ):const SizedBox(),
-                        // SizedBox(
-                        //   height: widget.product!.description!=null?5:0,
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        //   child: Container(
-                        //     padding: const EdgeInsets.all(5),
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(100),
-                        //         color: count<=0?Colors.grey.shade300:Colors.yellow.shade800
-                        //     ),
-                        //     child: Center(
-                        //       child: Row(
-                        //         mainAxisSize: MainAxisSize.min,
-                        //         children: [
-                        //           Expanded(
-                        //             child: Center(
-                        //               child: InkWell(
-                        //                 onTap: (){
-                        //                   int code = Provider.of<CartViewModel>(context,listen: false)
-                        //                       .setQuntity(widget.product!, count-1);
-                        //                   setState(() {
-                        //                     if(code==1){
-                        //                       count--;
-                        //                     }
-                        //                     if(code==2){
-                        //                       count=0;
-                        //                     }
-                        //                   });
-                        //                 },
-                        //                 child: Container(
-                        //                   padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
-                        //                   child: const Icon(
-                        //                     Icons.remove,
-                        //                     size: 15,
-                        //                     color: Colors.black,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           Text(count.toString(),style: const TextStyle(color: Colors.black,fontSize: 15),),
-                        //           Expanded(
-                        //             child: Center(
-                        //               child: InkWell(
-                        //                 onTap: (){
-                        //                   int code = Provider.of<CartViewModel>(context,listen: false)
-                        //                       .setQuntity(widget.product!, count+1);
-                        //                   setState(() {
-                        //                     if(code==1){
-                        //                       count++;
-                        //                     }
-                        //                     if(code==2){
-                        //                       count=0;
-                        //                     }
-                        //                   });
-                        //                 },
-                        //                 child: Container(
-                        //                   padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
-                        //                   child: const Icon(
-                        //                     Icons.add,
-                        //                     size: 15,
-                        //                     color: Colors.black,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 40)
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        widget.product!.description!=null?Text(
+                          widget.product!.description!,
+                          style: TextStyle(
+                              fontFamily: Fonts.poppinsRegular,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 13,
+                              color: Colors.grey
+                          ),
+                        ):const SizedBox(),
+                        SizedBox(
+                          height: widget.product!.description!=null?5:0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: count<=0?Colors.grey.shade300:Colors.yellow.shade800
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: InkWell(
+                                        onTap: (){
+                                          int code = Provider.of<CartViewModel>(context,listen: false)
+                                              .setQuntity(widget.product!, count-1);
+                                          setState(() {
+                                            if(code==1){
+                                              count--;
+                                            }
+                                            if(code==2){
+                                              count=0;
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                                          child: const Icon(
+                                            Icons.remove,
+                                            size: 15,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(count.toString(),style: const TextStyle(color: Colors.black,fontSize: 15),),
+                                  Expanded(
+                                    child: Center(
+                                      child: InkWell(
+                                        onTap: (){
+                                          int code = Provider.of<CartViewModel>(context,listen: false)
+                                              .setQuntity(widget.product!, count+1);
+                                          setState(() {
+                                            if(code==1){
+                                              count++;
+                                            }
+                                            if(code==2){
+                                              count=0;
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                                          child: const Icon(
+                                            Icons.add,
+                                            size: 15,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 40)
                       ],
                     ),
                   ),
