@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="162.528" height="117.507" viewBox="0 0 162.528 117.507">
+  <g id="Group_1" data-name="Group 1" transform="translate(-249.194 -225.616) rotate(-30)">
+    <path id="Path_1" data-name="Path 1" d="M10,0H154a10,10,0,0,1,10,10V31a10,10,0,0,1-10,10H10A10,10,0,0,1,0,31V10A10,10,0,0,1,10,0Z" transform="translate(62 391)" fill="#ff3e3e" opacity="0.85"/>
+    <text id="Out_Of_Stock" data-name="Out Of Stock" transform="translate(81 419)" fill="#fff" font-size="20" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="0" y="0">Out Of Stock</tspan></text>
+  </g>
+</svg>
